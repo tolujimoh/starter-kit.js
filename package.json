@@ -4,13 +4,16 @@
   "description": "A Javascript development Environment ",
   "scripts": {
     "prestart": "babel-node build/startMessage.js",
-    "start": "babel-node build/server.js & yarn run lint:watch & yarn run test:watch",
+    "start": "babel-node build/server.js & yarn run lint:watch & yarn run test:watch & yarn run start-mock-api",
     "localtunnel": "lt --port 3000",
     "lint": "esw webpack.config.* src build --color",
     "lint:watch": "yarn run lint --watch",
     "share": "yarn start & yarn run localtunnel",
     "test": "mocha --reporter progress build/testSetup.js \"src/**/*.test.js\"",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "generate-mock-data":"babel-node build/generateMockData.js",
+    "prestart-mock-api":"yarn run generate-mock-data",
+    "start-mock-api":"json-server --watch src/api/db.json --port 3001"
   },
   "repository": {
     "type": "git",
@@ -45,8 +48,6 @@
     "localtunnel": "1.8.1",
     "mocha": "3.1.2",
     "nock": "8.1.0",
-    "npm-run-all": "3.1.1",
-    "nsp": "2.6.2",
     "numeral": "1.5.3",
     "open": "0.0.5",
     "rimraf": "2.5.4",
